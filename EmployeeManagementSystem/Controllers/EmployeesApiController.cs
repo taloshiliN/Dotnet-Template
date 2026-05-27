@@ -1,10 +1,12 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using EmployeeManagementSystem.DTOs;
 
 namespace EmployeeManagementSystem.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/employees")]
 public class EmployeeApiController : ControllerBase
@@ -149,6 +151,7 @@ public class EmployeeApiController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin,HR")]
     public async Task<IActionResult> CreateEmployee(CreateEmployeeDto employeeDto)
     {
         try
@@ -177,6 +180,7 @@ public class EmployeeApiController : ControllerBase
     }
     
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,HR")]
     public async Task<IActionResult> UpdateEmployee(int id, CreateEmployeeDto employeeDto)
     {
         try
@@ -204,6 +208,7 @@ public class EmployeeApiController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteEmployee(int id)
     {
         var deleted = await _employeeService.DeleteEmployeeAsync(id);

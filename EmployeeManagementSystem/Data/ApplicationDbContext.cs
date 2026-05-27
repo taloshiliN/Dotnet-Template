@@ -1,14 +1,14 @@
 using EmployeeManagementSystem.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementSystem.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-
     public DbSet<Employee> Employees {get; set;}
     public DbSet<Department> Departments {get; set;}
     public DbSet<JobTitle> JobTitles {get; set;}
